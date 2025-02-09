@@ -56,7 +56,10 @@ def dismiss_text_box(browser):
 ## Webscrape Goodreads to-read list 
 
 def get_to_read_data(url):
-    browser=webdriver.Firefox()
+
+    opts = FirefoxOptions()
+    opts.add_argument("--headless")
+    browser = webdriver.Firefox(options=opts)
     
     browser.get(url)
     
