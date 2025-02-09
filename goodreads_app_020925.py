@@ -15,6 +15,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.options import Options
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -57,7 +58,7 @@ def dismiss_text_box(browser):
 
 def get_to_read_data(url):
 
-    opts = FirefoxOptions()
+    opts = Options()
     opts.add_argument("--headless")
     browser = webdriver.Firefox(options=opts)
     
