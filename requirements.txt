@@ -7,3 +7,4 @@ numpy
 requests
 gunicorn==19.7.1
 flask==2.0.0
+Werkzeug==2.2.2
