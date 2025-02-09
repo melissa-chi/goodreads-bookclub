@@ -4,6 +4,5 @@ pandas
 regex
 selenium
 numpy
-os
 time
 requests
