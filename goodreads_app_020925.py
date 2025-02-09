@@ -196,7 +196,7 @@ import re
 # Initialize the Dash app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], prevent_initial_callbacks=True, suppress_callback_exceptions=True)
 
-
+server = app.server
 
 # Layout for the form page with outer margin
 app.layout = html.Div(
