@@ -5,3 +5,4 @@ regex
 selenium
 numpy
 requests
+gunicorn==19.7.1
