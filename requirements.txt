@@ -1,0 +1,11 @@
+dash==2.6.0
+dash_bootstrap_components
+pandas
+re
+regex
+selenium
+numpy
+json
+os
+time
+requests
