@@ -43,6 +43,7 @@ def dismiss_text_box(browser):
         # Click the dismiss button
         dismiss_button.click()
         print("Dismissed the text box/pop-up.")
+        logging.debug("Dismissed the text box")
         
     except Exception as e:
         print(f"No dismiss button found or error: {e}")
@@ -51,12 +52,15 @@ def dismiss_text_box(browser):
             close_button_js = browser.find_element(By.CSS_SELECTOR, "div.modal__close button.gr-iconButton")
             browser.execute_script("arguments[0].click();", close_button_js)
             print("Popup closed successfully using JavaScript.")
+            logging.debug("Popup closed used JavaScript")
         except Exception as js_error:
             print(f"Error in JavaScript click: {js_error}")
 
 ## Webscrape Goodreads to-read list 
 
 def get_to_read_data(url):
+    
+    logging.debug("Initiating webscraping")
 
     opts = Options()
     opts.add_argument("--headless")
@@ -114,6 +118,7 @@ def get_to_read_data(url):
         time.sleep(0.5)  # Wait for 2 seconds before clicking the next page
 
     # Turn data into a dataframe
+    logging.debug("Concatenating all the data for a url")
     book_dat = pd.DataFrame({'Title':book_titles,'Author':authors,'Link':book_links})
     
     # Close the browser
@@ -201,6 +206,13 @@ import re
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], prevent_initial_callbacks=True, suppress_callback_exceptions=True)
 
 server = app.server
+
+# Using logging to debug
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+logging.debug("Dash app has started")
+
 
 # Layout for the form page with outer margin
 app.layout = html.Div(
@@ -350,6 +362,9 @@ def handle_submit(n_clicks, url_values):
     # Initially, set the "Please wait..." message after the submit button is clicked
     please_wait_message = "Please wait..."
     
+    logging.debug(f"Received n_clicks: {n_clicks}")
+    logging.debug(f"Received URL values: {url_values}")
+    
     # Filter out None or empty values for URLs
     urls = [url for url in url_values if url]
     
@@ -369,6 +384,7 @@ def handle_submit(n_clicks, url_values):
     time.sleep(1)  # Simulate delay (replace this with real backend code)
     
     # Backend
+    logging.debug("Starting backend processing...")
     d = {}
     url_cnt = 0
     for url in urls:
@@ -380,11 +396,13 @@ def handle_submit(n_clicks, url_values):
         url_cnt+=1
 
     result = find_overlapping_rows(d)
-    print('results!')
+    logging.debug("Finished going through urls")
+    
     print(result)
     
     if isinstance(result, pd.DataFrame):
         print('hitting results')
+        logging.debug("Building results table")
         # After processing, hide the "Please wait" message and show the result
         result_table = dash_table.DataTable(
             id='result-table',
@@ -416,4 +434,4 @@ def handle_submit(n_clicks, url_values):
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=True,jupyter_mode='tab')
