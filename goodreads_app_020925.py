@@ -411,9 +411,9 @@ def handle_submit(n_clicks, url_values):
         
     else:
         print('hitting edge case!')
-        return "",result
+        return "","",result
 
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True, jupyter_mode='tab')
+    app.run_server()
