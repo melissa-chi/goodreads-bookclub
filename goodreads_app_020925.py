@@ -11,6 +11,7 @@ import os
 import re
 import time
 import requests
+import random
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -62,8 +63,16 @@ def get_to_read_data(url):
     
     logging.debug("Initiating webscraping")
 
+    user_agents = [
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0",
+        # Add more user agents here
+    ]
+
     opts = Options()
     opts.add_argument("--headless")
+    opts.add_argument(f"user-agent={random.choice(user_agents)}")  # Random User-Agent
     browser = webdriver.Firefox(options=opts)
     
     browser.get(url)
